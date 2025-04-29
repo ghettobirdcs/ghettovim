@@ -78,6 +78,8 @@ vim.opt.scrolloff = 10
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- CUSTOM KEYMAPS (not which-key) (ghettobird)
 -- Exit insert mode by quickly tapping 'jk'
 vim.keymap.set('i', 'jk', '<Esc>')
 
@@ -201,7 +203,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-        -- MY CUSTOM KEYBINDS (ghettobird)
+        -- CUSTOM WHICH-KEY KEYMAPS (ghettobird)
         { '<leader>H', group = '[H]arpoon' },
         { '<leader>L', group = '[L]ive Server' },
         { '<leader>x', group = 'Emmet' },
@@ -492,7 +494,9 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        pyright = {},
+        pyright = {
+          filetypes = { 'python' },
+        },
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -501,11 +505,10 @@ require('lazy').setup({
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
-        --
 
         lua_ls = {
           -- cmd = {...},
-          -- filetypes = { ...},
+          filetypes = { 'lua' },
           -- capabilities = {},
           settings = {
             Lua = {
@@ -833,9 +836,9 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
+        additional_vim_regex_highlighting = { 'ruby', 'html', 'css', 'javascript' },
       },
-      indent = { enable = true, disable = { 'ruby' } },
+      indent = { enable = true, disable = { 'ruby', 'html', 'css', 'javascript' } },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -866,7 +869,7 @@ require('lazy').setup({
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
