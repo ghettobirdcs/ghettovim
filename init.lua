@@ -13,8 +13,9 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 -- CUSTOM OPTIONS (ghettobird)
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+-- TODO: Auto tabstop + shiftwidth (idk what shiftwidth does)
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 
 -- Make line numbers default
 vim.opt.number = true
@@ -211,7 +212,7 @@ require('lazy').setup({
         { '<leader>Le', vim.cmd.LiveServerStop, desc = '[L]ive Server [E]nd', mode = 'n' },
         { '<leader>F', vim.cmd.Ex, desc = '[F]ile Explorer', mode = 'n' },
         { '<leader>xe', desc = 'Abbreviation' },
-        { '<C-s>', vim.cmd.w, desc = 'Save File', mode = 'n' },
+        { '<C-s>', vim.cmd.Copilot, desc = 'Display [S]uggestions', mode = 'n' },
       }
     end,
   },
@@ -836,9 +837,9 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby', 'html', 'css', 'javascript' },
+        additional_vim_regex_highlighting = { 'ruby', 'html', 'css' },
       },
-      indent = { enable = true, disable = { 'ruby', 'html', 'css', 'javascript' } },
+      indent = { enable = true, disable = { 'ruby', 'html', 'css' } },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`

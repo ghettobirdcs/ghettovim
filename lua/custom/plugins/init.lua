@@ -1,4 +1,6 @@
 return {
+  { 'github/copilot.vim', config = function() end },
+
   {
     'mbbill/undotree',
     config = function()
@@ -45,6 +47,32 @@ return {
     'olrtg/nvim-emmet',
     config = function()
       vim.keymap.set({ 'n', 'v' }, '<leader>xe', require('nvim-emmet').wrap_with_abbreviation)
+
+      -- Custom mapping for React Functional Component boilerplate
+      vim.keymap.set('n', '<leader>rfc', function()
+        -- Get the current file name without the extension for component name
+        local file_name = vim.fn.expand '%:t:r'
+        local rfc_boilerplate = string.format(
+          [[
+import React from 'react';
+
+const %s = () => {
+  return (
+    <div>
+
+    </div>
+  );
+};
+
+export default %s;
+]],
+          file_name,
+          file_name
+        )
+
+        -- Insert the boilerplate at the beginning of the file
+        vim.api.nvim_buf_set_lines(0, 0, 0, false, vim.split(rfc_boilerplate, '\n'))
+      end, { desc = 'Insert React Functional Component boilerplate' })
     end,
   },
 
