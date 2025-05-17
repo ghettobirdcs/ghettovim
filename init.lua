@@ -13,9 +13,7 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 -- CUSTOM OPTIONS (ghettobird)
--- TODO: Auto tabstop + shiftwidth (idk what shiftwidth does)
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.wrap = false
 
 -- Make line numbers default
 vim.opt.number = true
@@ -71,7 +69,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 5
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -106,6 +104,18 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+
+-- CUSTOM AUTOCOMMANDS (ghettobird)
+-- Set tabstop and related settings for JavaScript and JavaScriptReact
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'javascript', 'javascriptreact' },
+  callback = function()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+    vim.bo.expandtab = true -- Use spaces instead of tabs
+  end,
+})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
@@ -505,7 +515,14 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {},
+
+        -- (ghettobird)
+        -- ts_ls = {
+        --   filetypes = { 'javascript', 'javascriptreact', 'typescriptreact' },
+        -- },
+        tailwindcss = {
+          filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescriptreact' },
+        },
 
         lua_ls = {
           -- cmd = {...},
@@ -523,7 +540,7 @@ require('lazy').setup({
         },
 
         emmet_language_server = {
-          filetypes = { 'css', 'html', 'javascript', 'javascriptreact' },
+          filetypes = { 'css', 'html', 'javascript', 'javascriptreact', 'typescriptreact' },
           -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
           -- **Note:** only the options listed in the table are supported.
           init_options = {
@@ -563,6 +580,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'emmet-language-server', -- Used for html boilerplate compeltions
+        'prettier',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -619,10 +637,11 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        -- python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
@@ -820,6 +839,7 @@ require('lazy').setup({
         'diff',
         'html',
         'css',
+        'tsx',
         'lua',
         'luadoc',
         'markdown',
@@ -867,12 +887,12 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
+  require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

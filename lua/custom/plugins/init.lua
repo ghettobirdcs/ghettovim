@@ -1,4 +1,21 @@
 return {
+  -- tailwind-tools.lua
+  {
+    'luckasRanarison/tailwind-tools.nvim',
+    name = 'tailwind-tools',
+    build = ':UpdateRemotePlugins',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-telescope/telescope.nvim', -- optional
+      'neovim/nvim-lspconfig', -- optional
+    },
+    opts = { -- ghettobird config
+      document_color = {
+        inline_symbol = ' ',
+      },
+    },
+  },
+
   { 'github/copilot.vim', config = function() end },
 
   {
@@ -76,7 +93,7 @@ export default %s;
     end,
   },
 
-  {
+  { -- WARN: Unused plugin for now - using bun run dev as of 5/17/2025
     'barrett-ruth/live-server.nvim',
     opts = {
       build = 'pnpm add -g live-server',
