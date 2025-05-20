@@ -1,3 +1,4 @@
+-- TODO: Bind Tailwind commands so I can navigate through web app source code easier
 return {
   -- tailwind-tools.lua
   {

@@ -108,7 +108,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- CUSTOM AUTOCOMMANDS (ghettobird)
 -- Set tabstop and related settings for JavaScript and JavaScriptReact
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'javascript', 'javascriptreact' },
+  pattern = { 'javascript', 'javascriptreact', 'typescriptreact', 'typescript' },
   callback = function()
     vim.bo.tabstop = 2
     vim.bo.shiftwidth = 2
@@ -521,7 +521,7 @@ require('lazy').setup({
         --   filetypes = { 'javascript', 'javascriptreact', 'typescriptreact' },
         -- },
         tailwindcss = {
-          filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescriptreact' },
+          filetypes = { 'html', 'css', 'javascript', 'javascriptreact', 'typescriptreact', 'typescript' },
         },
 
         lua_ls = {
@@ -540,7 +540,7 @@ require('lazy').setup({
         },
 
         emmet_language_server = {
-          filetypes = { 'css', 'html', 'javascript', 'javascriptreact', 'typescriptreact' },
+          filetypes = { 'css', 'html', 'javascript', 'javascriptreact', 'typescriptreact', 'typescript' },
           -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
           -- **Note:** only the options listed in the table are supported.
           init_options = {
@@ -642,6 +642,8 @@ require('lazy').setup({
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },
