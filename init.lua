@@ -1,3 +1,5 @@
+-- TODO: Find way to page through diagnostics of workspace, not just current buffer
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -81,6 +83,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- CUSTOM KEYMAPS (not which-key) (ghettobird)
 -- Exit insert mode by quickly tapping 'jk'
 vim.keymap.set('i', 'jk', '<Esc>')
+-- Copilot autocomplete with CTRL-J in insert mode
+vim.keymap.set('i', '<C-J>', 'copilot#Accept("")', {
+  expr = true,
+  replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -859,9 +867,9 @@ require('lazy').setup({
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
         --  If you are experiencing weird indenting issues, add the language to
         --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby', 'html', 'css' },
+        additional_vim_regex_highlighting = { 'ruby', 'html', 'css', 'typescript', 'typescriptreact' },
       },
-      indent = { enable = true, disable = { 'ruby', 'html', 'css' } },
+      indent = { enable = true, disable = { 'ruby', 'html', 'css', 'typescript', 'typescriptreact' } },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
